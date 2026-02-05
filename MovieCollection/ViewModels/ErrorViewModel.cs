@@ -1,4 +1,4 @@
-namespace MovieCollection.Models
+namespace MovieCollection.ViewModels
 {
     public class ErrorViewModel
     {
