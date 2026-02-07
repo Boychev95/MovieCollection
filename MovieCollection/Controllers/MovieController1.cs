@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCollection.Data;
-using MovieCollection.Models;
 using MovieCollection.ViewModels;
 
 
@@ -13,6 +12,7 @@ public class MoviesController : Controller
     {
         _context = context;
     }
+
     public async Task<IActionResult> Index()
     {
         var movies = await _context.Movies
@@ -22,6 +22,7 @@ public class MoviesController : Controller
 
         return View(movies);
     }
+
     public async Task<IActionResult> Details(int id)
     {
         var movie = await _context.Movies
@@ -34,6 +35,7 @@ public class MoviesController : Controller
 
         return View(movie);
     }
+
     public async Task<IActionResult> Create()
     {
         var viewModel = new MovieFormViewModel
@@ -44,6 +46,7 @@ public class MoviesController : Controller
 
         return View(viewModel);
     }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(MovieFormViewModel viewModel)
@@ -60,6 +63,7 @@ public class MoviesController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
     public async Task<IActionResult> Edit(int id)
     {
         var movie = await _context.Movies.FindAsync(id);
@@ -76,6 +80,7 @@ public class MoviesController : Controller
 
         return View(viewModel);
     }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, MovieFormViewModel viewModel)
@@ -95,6 +100,7 @@ public class MoviesController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
     public async Task<IActionResult> Delete(int id)
     {
         var movie = await _context.Movies
@@ -107,6 +113,7 @@ public class MoviesController : Controller
 
         return View(movie);
     }
+
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
