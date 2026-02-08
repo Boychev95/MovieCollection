@@ -1,0 +1,34 @@
+﻿@model IEnumerable<MovieCollection.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<h1 class="mb-4">Movies</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Add New Movie</a>
+</p>
+
+<div class="row">
+    @foreach (var movie in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Title</h5>
+                    <p class="card-text">
+                        <strong>Genre:</strong> @movie.Genre.Name <br />
+                        <strong>Director:</strong> @movie.Director.FullName <br />
+                        <strong>Year:</strong> @movie.ReleaseYear <br />
+                        <strong>Rating:</strong> @movie.Rating / 10
+                    </p>
+
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@movie.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@movie.Id" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

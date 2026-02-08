@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MovieCollection.Models;
+using MovieCollection.ViewModels;
+
 
 namespace MovieCollection.Controllers
 {
