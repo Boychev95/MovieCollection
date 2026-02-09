@@ -17,7 +17,6 @@ namespace MovieCollection.Services
         {
             return await _context.Movies
                 .Include(m => m.Genre)
-                .Include(m => m.Director)
                 .ToListAsync();
         }
 
@@ -25,7 +24,6 @@ namespace MovieCollection.Services
         {
             return await _context.Movies
                 .Include(m => m.Genre)
-                .Include(m => m.Director)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 

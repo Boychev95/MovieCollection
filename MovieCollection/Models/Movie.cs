@@ -7,24 +7,23 @@ namespace MovieCollection.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = null!;
 
-        [StringLength(500)]
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
 
-        [Range(1900, 2100)]
+        [Required]
         public int ReleaseYear { get; set; }
 
+        [Required]
         [Range(1, 10)]
-        public double Rating { get; set; }
+        public int Rating { get; set; }
 
         [Required]
         public int GenreId { get; set; }
+
         public Genre Genre { get; set; } = null!;
 
         [Required]
-        public int DirectorId { get; set; }
-        public Director Director { get; set; } = null!;
+        public string Director { get; set; } = null!;
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MovieCollection.Data;
+using MovieCollection.Models;
 using MovieCollection.Services;
-using MovieCollection.ViewModels;
 
 public class MoviesController : Controller
 {
@@ -33,28 +34,21 @@ public class MoviesController : Controller
 
     public async Task<IActionResult> Create()
     {
-        var viewModel = new MovieFormViewModel
-        {
-            Genres = await _context.Genres.ToListAsync(),
-            Directors = await _context.Directors.ToListAsync()
-        };
-
-        return View(viewModel);
+        ViewBag.Genres = new SelectList(await _context.Genres.ToListAsync(), "Id", "Name");
+        return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(MovieFormViewModel viewModel)
+    public async Task<IActionResult> Create(Movie movie)
     {
         if (!ModelState.IsValid)
         {
-            viewModel.Genres = await _context.Genres.ToListAsync();
-            viewModel.Directors = await _context.Directors.ToListAsync();
-            return View(viewModel);
+            ViewBag.Genres = new SelectList(await _context.Genres.ToListAsync(), "Id", "Name");
+            return View(movie);
         }
 
-        await _movieService.CreateAsync(viewModel.Movie);
-
+        await _movieService.CreateAsync(movie);
         return RedirectToAction(nameof(Index));
     }
 
@@ -65,32 +59,24 @@ public class MoviesController : Controller
         if (movie == null)
             return NotFound();
 
-        var viewModel = new MovieFormViewModel
-        {
-            Movie = movie,
-            Genres = await _context.Genres.ToListAsync(),
-            Directors = await _context.Directors.ToListAsync()
-        };
-
-        return View(viewModel);
+        ViewBag.Genres = new SelectList(await _context.Genres.ToListAsync(), "Id", "Name", movie.GenreId);
+        return View(movie);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, MovieFormViewModel viewModel)
+    public async Task<IActionResult> Edit(int id, Movie movie)
     {
-        if (id != viewModel.Movie.Id)
+        if (id != movie.Id)
             return NotFound();
 
         if (!ModelState.IsValid)
         {
-            viewModel.Genres = await _context.Genres.ToListAsync();
-            viewModel.Directors = await _context.Directors.ToListAsync();
-            return View(viewModel);
+            ViewBag.Genres = new SelectList(await _context.Genres.ToListAsync(), "Id", "Name", movie.GenreId);
+            return View(movie);
         }
 
-        await _movieService.UpdateAsync(viewModel.Movie);
-
+        await _movieService.UpdateAsync(movie);
         return RedirectToAction(nameof(Index));
     }
 

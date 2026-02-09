@@ -1,60 +1,44 @@
-﻿@model MovieCollection.ViewModels.MovieFormViewModel
+﻿@model MovieCollection.Models.Movie
 
-@{
-    ViewData["Title"] = "Edit Movie";
-}
+<h1>Edit Movie</h1>
 
-<h1 class="mb-4">Edit Movie</h1>
-
-<form asp-action="Edit" method="post">
-    <input type="hidden" asp-for="Movie.Id" />
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
 
     <div class="mb-3">
-        <label asp-for="Movie.Title" class="form-label"></label>
-        <input asp-for="Movie.Title" class="form-control" />
-        <span asp-validation-for="Movie.Title" class="text-danger"></span>
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label asp-for="Movie.Description" class="form-label"></label>
-        <textarea asp-for="Movie.Description" class="form-control"></textarea>
-        <span asp-validation-for="Movie.Description" class="text-danger"></span>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Movie.ReleaseYear" class="form-label"></label>
-        <input asp-for="Movie.ReleaseYear" class="form-control" />
-        <span asp-validation-for="Movie.ReleaseYear" class="text-danger"></span>
+        <label asp-for="ReleaseYear"></label>
+        <input asp-for="ReleaseYear" class="form-control" />
     </div>
 
     <div class="mb-3">
-        <label asp-for="Movie.Rating" class="form-label"></label>
-        <input asp-for="Movie.Rating" class="form-control" />
-        <span asp-validation-for="Movie.Rating" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Movie.GenreId" class="form-label">Genre</label>
-        <select asp-for="Movie.GenreId" class="form-select"
-                asp-items="@(new SelectList(Model.Genres, "Id", "Name"))">
-            <option value="">-- Select Genre --</option>
+        <label asp-for="Rating"></label>
+        <select asp-for="Rating" class="form-select">
+            @for (int i = 1; i <= 10; i++)
+            {
+                <option value="@i">@i</option>
+            }
         </select>
-        <span asp-validation-for="Movie.GenreId" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label asp-for="Movie.DirectorId" class="form-label">Director</label>
-        <select asp-for="Movie.DirectorId" class="form-select"
-                asp-items="@(new SelectList(Model.Directors, "Id", "FullName"))">
-            <option value="">-- Select Director --</option>
-        </select>
-        <span asp-validation-for="Movie.DirectorId" class="text-danger"></span>
+        <label asp-for="GenreId"></label>
+        <select asp-for="GenreId" asp-items="ViewBag.Genres" class="form-select"></select>
     </div>
 
-    <button type="submit" class="btn btn-success">Save Changes</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <div class="mb-3">
+        <label asp-for="Director"></label>
+        <input asp-for="Director" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Save</button>
 </form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
