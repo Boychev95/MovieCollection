@@ -1,0 +1,60 @@
+﻿@model MovieCollection.ViewModels.MovieFormViewModel
+
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<h1 class="mb-4">Edit Movie</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Movie.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Movie.Title" class="form-label"></label>
+        <input asp-for="Movie.Title" class="form-control" />
+        <span asp-validation-for="Movie.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Movie.Description" class="form-label"></label>
+        <textarea asp-for="Movie.Description" class="form-control"></textarea>
+        <span asp-validation-for="Movie.Description" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Movie.ReleaseYear" class="form-label"></label>
+        <input asp-for="Movie.ReleaseYear" class="form-control" />
+        <span asp-validation-for="Movie.ReleaseYear" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Movie.Rating" class="form-label"></label>
+        <input asp-for="Movie.Rating" class="form-control" />
+        <span asp-validation-for="Movie.Rating" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Movie.GenreId" class="form-label">Genre</label>
+        <select asp-for="Movie.GenreId" class="form-select"
+                asp-items="@(new SelectList(Model.Genres, "Id", "Name"))">
+            <option value="">-- Select Genre --</option>
+        </select>
+        <span asp-validation-for="Movie.GenreId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Movie.DirectorId" class="form-label">Director</label>
+        <select asp-for="Movie.DirectorId" class="form-select"
+                asp-items="@(new SelectList(Model.Directors, "Id", "FullName"))">
+            <option value="">-- Select Director --</option>
+        </select>
+        <span asp-validation-for="Movie.DirectorId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
