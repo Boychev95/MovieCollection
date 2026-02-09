@@ -1,0 +1,37 @@
+﻿@model MovieCollection.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<h1 class="mb-4">Movie Details</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h3 class="card-title">@Model.Title</h3>
+
+        <p class="card-text">
+            <strong>Description:</strong><br />
+            @Model.Description
+        </p>
+
+        <p class="card-text">
+            <strong>Genre:</strong> @Model.Genre.Name
+        </p>
+
+        <p class="card-text">
+            <strong>Director:</strong> @Model.Director.FullName
+        </p>
+
+        <p class="card-text">
+            <strong>Release Year:</strong> @Model.ReleaseYear
+        </p>
+
+        <p class="card-text">
+            <strong>Rating:</strong> @Model.Rating / 10
+        </p>
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
